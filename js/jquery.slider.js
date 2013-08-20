@@ -42,6 +42,15 @@
 	  if( !jNode.data( "jslider" ) )
 	    jNode.data( "jslider", new jSlider( node, settings ) );
 	  
+	  if( settings.disabled == true){
+		jSliderPointer.prototype.onmousemove = function( evt, x ){/*do nothing*/};
+	    }else{
+		jSliderPointer.prototype.onmousemove = function( evt, x ){
+		var coords = this._getPageCoords( evt );
+		this._set( this.calc( coords.x ) );
+		};
+	    }
+	    
 	  return jNode.data( "jslider" );
 	};
 	
