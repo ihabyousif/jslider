@@ -143,7 +143,22 @@
         return (hours < 10 ? "0"+hours : hours) + ":" + ( mins == 0 ? "00" : mins );
       }})
 
+      function disable(){
+      jQuery("#Slider5").slider({disabled: true });
+      
+      }
+      
+      function enable(){
+      jQuery("#Slider5").slider({disabled: false });
+      
+      }
+
     </script>
+    
+    <input value='disable' type="button" onclick="disable()"/>
+    
+    <input value = 'enable' type="button" onclick="enable()"/>
+    
     
   </div>
 
