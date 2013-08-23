@@ -41,16 +41,11 @@
 	  var jNode = $(node);
 	  if( !jNode.data( "jslider" ) )
 	    jNode.data( "jslider", new jSlider( node, settings ) );
-	  
 	  if( settings.disabled == true){
-		jSliderPointer.prototype.onmousemove = function( evt, x ){/*do nothing*/};
-	    }else{
-		jSliderPointer.prototype.onmousemove = function( evt, x ){
-		var coords = this._getPageCoords( evt );
-		this._set( this.calc( coords.x ) );
-		};
-	    }
-	    
+		jNode.attr('disabled', true );
+	  }else{
+		jNode.attr('disabled', false );
+	  }
 	  return jNode.data( "jslider" );
 	};
 	
@@ -542,7 +537,17 @@
     this.inputNode.attr( "value", value );
     this.onstatechange.call( this, value );
   };
-
+  
+  
+  jSlider.prototype.setDisabled = function(b){
+    this.inputNode.attr( "disabled", b );
+  };
+  
+    jSlider.prototype.isDisabled = function( ){
+  	var d = this.inputNode.attr("disabled");
+  	return d;
+  };
+  
   jSlider.prototype.getValue = function(){
     if(!this.is.init) return false;
     var $this = this;
@@ -663,8 +668,10 @@
 	};
 
 	jSliderPointer.prototype.onmousemove = function( evt, x ){
-	  var coords = this._getPageCoords( evt );
-	  this._set( this.calc( coords.x ) );
+		if (! this.parent.isDisabled()){
+		  var coords = this._getPageCoords( evt );
+		  this._set( this.calc( coords.x ) );
+		}
 	};
 	
 	jSliderPointer.prototype.onmouseup = function( evt ){
